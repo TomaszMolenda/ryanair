@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{%for country in countries%}
+
+<div>{{country.name}} - {{country.price_average}}</div>
+<div>
+    {%for offer in country.offers%}
+    <li>{{offer.price_one_person}}</li>
+    {%endfor%}
+</div>
+{%endfor%}
+{% endblock %}

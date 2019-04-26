@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Skąd: {{ trip.flight_to_destination.origin_name }}!</h1>
+    <h1>Dokąd: {{ trip.flight_to_destination.destination_name }}!</h1>
+    <h1>Cena dziecko: {{ trip.flight_to_destination.child_amount }} {{ trip.flight_to_destination.currency }}!</h1>
+    <h1>Cena młodzież: {{ trip.flight_to_destination.teen_amount }} {{ trip.flight_to_destination.currency }}!</h1>
+    <h1>Cena dorosły: {{ trip.flight_to_destination.adult_amount }} {{ trip.flight_to_destination.currency }}!</h1>
+{% endblock %}
