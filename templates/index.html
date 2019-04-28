@@ -1,9 +1,38 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Skąd: {{ trip.flight_to_destination.origin_name }}!</h1>
-    <h1>Dokąd: {{ trip.flight_to_destination.destination_name }}!</h1>
-    <h1>Cena dziecko: {{ trip.flight_to_destination.child_amount }} {{ trip.flight_to_destination.currency }}!</h1>
-    <h1>Cena młodzież: {{ trip.flight_to_destination.teen_amount }} {{ trip.flight_to_destination.currency }}!</h1>
-    <h1>Cena dorosły: {{ trip.flight_to_destination.adult_amount }} {{ trip.flight_to_destination.currency }}!</h1>
+    {%for checked_trip in checked_trips%}
+--------------------------------------------------------
+        Czas sprawdzenia: {{checked_trip.date}}<br>
+        <h1>Wylot</h1>
+        <li>Skąd: {{checked_trip.trip_to_destination.origin}}</li>
+        <li>Dokąd: {{checked_trip.trip_to_destination.destination}}
+            <br>Loty w dniach:
+            {%for date in checked_trip.trip_to_destination.dates%}
+                <br>Kiedy: {{date.departure_date}}
+                <br>Loty:
+                {%for flight in date.flights%}
+                    <br>Lot nr: {{flight.flight_number}}
+                    Opłaty:
+                    {%for fare in flight.fares%}
+                        <li>Kto: {{fare.type}}, Ile: {{fare.amount}} {{fare.currency}}</li>
+                    {%endfor%}
+                {%endfor%}
+            {%endfor%}
+        <h1>Powrót</h1>
+        <li>Skąd: {{checked_trip.trip_to_origin.origin}}</li>
+        <li>Dokąd: {{checked_trip.trip_to_origin.destination}}</li>
+            <br>Loty w dniach:
+            {%for date in checked_trip.trip_to_origin.dates%}
+                <br>Kiedy: {{date.departure_date}}
+                <br>Loty:
+                {%for flight in date.flights%}
+                    <br>Lot nr: {{flight.flight_number}}
+                    Opłaty:
+                    {%for fare in flight.fares%}
+                        <li>Kto: {{fare.type}}, Ile: {{fare.amount}} {{fare.currency}}</li>
+                    {%endfor%}
+                {%endfor%}
+            {%endfor%}
+    {%endfor%}
 {% endblock %}

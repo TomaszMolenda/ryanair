@@ -1,47 +1,47 @@
 import requests
 import database
-from flight import Flight
-from trip import Trip
+from entity import Fare, Flight, Trip, Date, CheckedTrip
 
 
-def find_flight(data, flight_date):
+def find_trip(data, _from, _to):
     currency = data['currency']
     for trip in data['trips']:
-        for date in trip['dates']:
-            if flight_date in date['dateOut']:
-                for flight in date['flights']:
-                    child_amount = ''
-                    teen_amount = ''
-                    adult_amount = ''
-                    for fare in flight['regularFare']['fares']:
-                        if fare['type'] == 'CHD':
-                            child_amount = fare['amount']
-                        if fare['type'] == 'TEEN':
-                            teen_amount = fare['amount']
-                        if fare['type'] == 'ADT':
-                            adult_amount = fare['amount']
-                    origin_name = trip['originName']
-                    destination_name = trip['destinationName']
-                    return Flight(currency, origin_name, destination_name, child_amount, teen_amount, adult_amount)
+        if _from in trip['origin'] and _to in trip['destination']:
+            dates = []
+            for date in trip['dates']:
+                if len(date['flights']) > 0:
+                    flights = []
+                    flight_date = date['dateOut']
+                    for flight in date['flights']:
+                        fares = []
+                        for fare in flight['regularFare']['fares']:
+                            fares.append(Fare(fare['type'], fare['amount'], currency))
+                        flights.append(Flight(flight['flightNumber'], fares))
+                    dates.append(Date(flight_date, flights))
+            return Trip(trip['origin'], trip['destination'], dates)
 
 
 def check():
 
-    date_in = database.Database.getInstance().date_in
-    date_out = database.Database.getInstance().date_out
+    departure_date = database.Database.getInstance().departure_date
+    arrival_date = database.Database.getInstance().arrival_date
     destination = database.Database.getInstance().destination
     origin = database.Database.getInstance().origin
+    adult = database.Database.getInstance().adult
+    teen = database.Database.getInstance().teen
+    child = database.Database.getInstance().child
+    flex_days = database.Database.getInstance().flex_days
 
     params = {
-        'ADT': 3,
-        'CHD': 2,
-        'TEEN': 1,
-        'DateOut': date_out,
-        'DateIn': date_in,
+        'ADT': adult,
+        'CHD': child,
+        'TEEN': teen,
+        'DateOut': departure_date,
+        'DateIn': arrival_date,
         'Origin': origin,
         'Destination': destination,
-        'FlexDaysIn': 6,
-        'FlexDaysOut': 2,
+        'FlexDaysIn': flex_days,
+        'FlexDaysOut': flex_days,
         'INF': 0,
         'IncludeConnectingFlights': 'true',
         'RoundTrip': 'true',
@@ -53,9 +53,11 @@ def check():
     resp = requests.get("https://desktopapps.ryanair.com/v4/pl-pl/availability/", params=params)
     data = resp.json()
 
-    flight_to_destination = find_flight(data, date_out)
-    flight_from_origin = find_flight(data, date_in)
+    trip_to_destination = find_trip(data, _from=origin, _to=destination)
+    trip_to_origin = find_trip(data, _from=destination, _to=origin)
 
-    database.Database.getInstance().trip = Trip(flight_to_destination, flight_from_origin)
+    checked_trip = CheckedTrip(trip_to_destination, trip_to_origin)
+
+    database.Database.getInstance().add_checked_trip(checked_trip)
 
     pass

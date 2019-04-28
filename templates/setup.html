@@ -2,8 +2,14 @@
 
 {% block content %}
     <form method="POST">
-        Skąd: <input type="text" name="destination"><br>
-        Dokąd: <input type="text" name="origin"><br>
+        Skąd: <input type="text" name="destination" value="SXF"><br>
+        Kiedy [rrrr-mm-dd]: <input type="text" name="departure_date" value="2020-02-15"><br>
+        Dokąd: <input type="text" name="origin" value="TFS"><br>
+        Kiedy [rrrr-mm-dd]: <input type="text" name="arrival_date" value="2020-02-15"><br>
+        Ile dorosłych: <input type="number" name="adult" value="2"><br>
+        Ile młodzieży: <input type="number" name="teen" value="1"><br>
+        Ile dzieci: <input type="number" name="child" value="1"><br>
+        Ile dni do przodu: <input type="number" name="flex_days" value="1"><br>
         <input type="submit" value="Submit"><br>
   </form>
 {% endblock %}

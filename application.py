@@ -9,9 +9,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    trip = database.Database.getInstance().trip
     check()
-    return render_template('index.html', trip=trip)
+    checked_trips = database.Database.getInstance().checked_trips
+    return render_template('index.html', checked_trips=checked_trips)
 
 
 @app.route('/setup', methods=['GET'])
@@ -22,14 +22,14 @@ def setup_view():
 @app.route('/setup', methods=['POST'])
 def setup():
     database.Database.getInstance().destination = request.form['destination']
+    database.Database.getInstance().departure_date = request.form['departure_date']
     database.Database.getInstance().origin = request.form['origin']
+    database.Database.getInstance().arrival_date = request.form['arrival_date']
+    database.Database.getInstance().adult = request.form['adult']
+    database.Database.getInstance().teen = request.form['teen']
+    database.Database.getInstance().child = request.form['child']
+    database.Database.getInstance().flex_days = request.form['flex_days']
     return redirect(url_for('setup_view'))
-
-
-@app.route('/all')
-def all():
-    countries = database.Database.getInstance().fetch()
-    return render_template('all.html', countries=countries)
 
 
 run_scheduler()

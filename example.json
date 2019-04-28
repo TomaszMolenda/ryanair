@@ -1,0 +1,368 @@
+{
+  "termsOfUse": "https://www.ryanair.com/ie/en/corporate/terms-of-use=AGREED",
+  "currency": "EUR",
+  "currPrecision": 2,
+  "trips": [
+    {
+      "origin": "SXF",
+      "originName": "Berlin (Schönefeld) TD",
+      "destination": "TFS",
+      "destinationName": "Teneryfa (południowa)",
+      "dates": [
+        {
+          "dateOut": "2020-02-14T00:00:00.000",
+          "flights": []
+        },
+        {
+          "dateOut": "2020-02-15T00:00:00.000",
+          "flights": [
+            {
+              "faresLeft": -1,
+              "flightKey": "FR~4068~ ~~SXF~02/15/2020 06:45~TFS~02/15/2020 11:05~~",
+              "infantsLeft": 18,
+              "regularFare": {
+                "fareKey": "0~H~ ~FR~HZ14LOW~BO14~~0~1~~X",
+                "fareClass": "H",
+                "fares": [
+                  {
+                    "type": "ADT",
+                    "amount": 71.3900,
+                    "count": 3,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "mandatorySeatFee": {
+                      "vat": 0.0,
+                      "amt": 6.0000,
+                      "total": 6.0000,
+                      "totalDiscount": 0.0,
+                      "totalWithoutDiscount": 6.0000,
+                      "code": "SETA",
+                      "qty": 1
+                    },
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "TEEN",
+                    "amount": 71.3900,
+                    "count": 1,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "CHD",
+                    "amount": 71.3900,
+                    "count": 2,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  }
+                ]
+              },
+              "operatedBy": "",
+              "segments": [
+                {
+                  "segmentNr": 0,
+                  "origin": "SXF",
+                  "destination": "TFS",
+                  "flightNumber": "FR 4068",
+                  "time": [
+                    "2020-02-15T06:45:00.000",
+                    "2020-02-15T11:05:00.000"
+                  ],
+                  "timeUTC": [
+                    "2020-02-15T05:45:00.000Z",
+                    "2020-02-15T11:05:00.000Z"
+                  ],
+                  "duration": "05:20"
+                }
+              ],
+              "flightNumber": "FR 4068",
+              "time": [
+                "2020-02-15T06:45:00.000",
+                "2020-02-15T11:05:00.000"
+              ],
+              "timeUTC": [
+                "2020-02-15T05:45:00.000Z",
+                "2020-02-15T11:05:00.000Z"
+              ],
+              "duration": "05:20"
+            }
+          ]
+        },
+        {
+          "dateOut": "2020-02-16T00:00:00.000",
+          "flights": []
+        }
+      ]
+    },
+    {
+      "origin": "TFS",
+      "originName": "Berlin (Schönefeld) TD",
+      "destination": "SXF",
+      "destinationName": "Teneryfa (południowa)",
+      "dates": [
+        {
+          "dateOut": "2020-02-28T00:00:00.000",
+          "flights": []
+        },
+        {
+          "dateOut": "2020-02-29T00:00:00.000",
+          "flights": [
+            {
+              "faresLeft": -1,
+              "flightKey": "FR~4067~ ~~TFS~02/29/2020 11:40~SXF~02/29/2020 17:50~~",
+              "infantsLeft": 18,
+              "regularFare": {
+                "fareKey": "0~V~ ~FR~VZ14LOW~BO14~~0~1~~X",
+                "fareClass": "V",
+                "fares": [
+                  {
+                    "type": "ADT",
+                    "amount": 95.8700,
+                    "count": 3,
+                    "hasDiscount": false,
+                    "publishedFare": 95.8700,
+                    "mandatorySeatFee": {
+                      "vat": 0.0,
+                      "amt": 6.0000,
+                      "total": 6.0000,
+                      "totalDiscount": 0.0,
+                      "totalWithoutDiscount": 6.0000,
+                      "code": "SETA",
+                      "qty": 1
+                    },
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "TEEN",
+                    "amount": 95.8700,
+                    "count": 1,
+                    "hasDiscount": false,
+                    "publishedFare": 95.8700,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "CHD",
+                    "amount": 95.8700,
+                    "count": 2,
+                    "hasDiscount": false,
+                    "publishedFare": 95.8700,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  }
+                ]
+              },
+              "operatedBy": "",
+              "segments": [
+                {
+                  "segmentNr": 0,
+                  "origin": "TFS",
+                  "destination": "SXF",
+                  "flightNumber": "FR 4067",
+                  "time": [
+                    "2020-02-29T11:40:00.000",
+                    "2020-02-29T17:50:00.000"
+                  ],
+                  "timeUTC": [
+                    "2020-02-29T11:40:00.000Z",
+                    "2020-02-29T16:50:00.000Z"
+                  ],
+                  "duration": "05:10"
+                }
+              ],
+              "flightNumber": "FR 4067",
+              "time": [
+                "2020-02-29T11:40:00.000",
+                "2020-02-29T17:50:00.000"
+              ],
+              "timeUTC": [
+                "2020-02-29T11:40:00.000Z",
+                "2020-02-29T16:50:00.000Z"
+              ],
+              "duration": "05:10"
+            }
+          ]
+        },
+        {
+          "dateOut": "2020-03-01T00:00:00.000",
+          "flights": []
+        },
+        {
+          "dateOut": "2020-03-02T00:00:00.000",
+          "flights": []
+        },
+        {
+          "dateOut": "2020-03-03T00:00:00.000",
+          "flights": [
+            {
+              "faresLeft": -1,
+              "flightKey": "FR~4067~ ~~TFS~03/03/2020 11:40~SXF~03/03/2020 17:50~~",
+              "infantsLeft": 18,
+              "regularFare": {
+                "fareKey": "0~H~ ~FR~HZ14LOW~BO14~~0~1~~X",
+                "fareClass": "H",
+                "fares": [
+                  {
+                    "type": "ADT",
+                    "amount": 71.3900,
+                    "count": 3,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "mandatorySeatFee": {
+                      "vat": 0.0,
+                      "amt": 6.0000,
+                      "total": 6.0000,
+                      "totalDiscount": 0.0,
+                      "totalWithoutDiscount": 6.0000,
+                      "code": "SETA",
+                      "qty": 1
+                    },
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "TEEN",
+                    "amount": 71.3900,
+                    "count": 1,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "CHD",
+                    "amount": 71.3900,
+                    "count": 2,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  }
+                ]
+              },
+              "operatedBy": "",
+              "segments": [
+                {
+                  "segmentNr": 0,
+                  "origin": "TFS",
+                  "destination": "SXF",
+                  "flightNumber": "FR 4067",
+                  "time": [
+                    "2020-03-03T11:40:00.000",
+                    "2020-03-03T17:50:00.000"
+                  ],
+                  "timeUTC": [
+                    "2020-03-03T11:40:00.000Z",
+                    "2020-03-03T16:50:00.000Z"
+                  ],
+                  "duration": "05:10"
+                }
+              ],
+              "flightNumber": "FR 4067",
+              "time": [
+                "2020-03-03T11:40:00.000",
+                "2020-03-03T17:50:00.000"
+              ],
+              "timeUTC": [
+                "2020-03-03T11:40:00.000Z",
+                "2020-03-03T16:50:00.000Z"
+              ],
+              "duration": "05:10"
+            }
+          ]
+        },
+        {
+          "dateOut": "2020-03-04T00:00:00.000",
+          "flights": []
+        },
+        {
+          "dateOut": "2020-03-05T00:00:00.000",
+          "flights": [
+            {
+              "faresLeft": -1,
+              "flightKey": "FR~4067~ ~~TFS~03/05/2020 11:05~SXF~03/05/2020 17:15~~",
+              "infantsLeft": 18,
+              "regularFare": {
+                "fareKey": "0~H~ ~FR~HZ14LOW~BO14~~0~1~~X",
+                "fareClass": "H",
+                "fares": [
+                  {
+                    "type": "ADT",
+                    "amount": 71.3900,
+                    "count": 3,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "mandatorySeatFee": {
+                      "vat": 0.0,
+                      "amt": 6.0000,
+                      "total": 6.0000,
+                      "totalDiscount": 0.0,
+                      "totalWithoutDiscount": 6.0000,
+                      "code": "SETA",
+                      "qty": 1
+                    },
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "TEEN",
+                    "amount": 71.3900,
+                    "count": 1,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  },
+                  {
+                    "type": "CHD",
+                    "amount": 71.3900,
+                    "count": 2,
+                    "hasDiscount": false,
+                    "publishedFare": 71.3900,
+                    "discountInPercent": 0,
+                    "hasPromoDiscount": false
+                  }
+                ]
+              },
+              "operatedBy": "",
+              "segments": [
+                {
+                  "segmentNr": 0,
+                  "origin": "TFS",
+                  "destination": "SXF",
+                  "flightNumber": "FR 4067",
+                  "time": [
+                    "2020-03-05T11:05:00.000",
+                    "2020-03-05T17:15:00.000"
+                  ],
+                  "timeUTC": [
+                    "2020-03-05T11:05:00.000Z",
+                    "2020-03-05T16:15:00.000Z"
+                  ],
+                  "duration": "05:10"
+                }
+              ],
+              "flightNumber": "FR 4067",
+              "time": [
+                "2020-03-05T11:05:00.000",
+                "2020-03-05T17:15:00.000"
+              ],
+              "timeUTC": [
+                "2020-03-05T11:05:00.000Z",
+                "2020-03-05T16:15:00.000Z"
+              ],
+              "duration": "05:10"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "serverTimeUTC": "2019-04-28T08:44:05.427Z"
+}
