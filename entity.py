@@ -1,11 +1,23 @@
 import datetime
 
 
+def asdictc_collection(collection_in):
+    return_collection = []
+    for element in collection_in:
+        return_collection.append(element.asdict())
+    return return_collection
+
+
 class CheckedTrip(object):
     def __init__(self, trip_to_destination, trip_to_origin):
         self.trip_to_destination = trip_to_destination
         self.trip_to_origin = trip_to_origin
-        self.date = datetime.datetime.now()
+        self.date = datetime.datetime.now().isoformat()
+
+    def asdict(self):
+            return {'trip_to_destination': self.trip_to_destination.asdict(),
+                    'trip_to_origin': self.trip_to_origin.asdict(),
+                    'date': self.date}
 
 
 class Trip(object):
@@ -13,6 +25,11 @@ class Trip(object):
         self.origin = origin
         self.destination = destination
         self.dates = dates
+
+    def asdict(self):
+        return {'origin': self.origin,
+                'destination': self.destination,
+                'dates': asdictc_collection(self.dates)}
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -27,6 +44,10 @@ class Date(object):
         self.departure_date = departure_date
         self.flights = flights
 
+    def asdict(self):
+        return {'departure_date': self.departure_date,
+                'flights': asdictc_collection(self.flights)}
+
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.departure_date == other.departure_date
@@ -38,6 +59,10 @@ class Flight(object):
     def __init__(self, flight_number, fares):
         self.flight_number = flight_number
         self.fares = fares
+
+    def asdict(self):
+        return {'flight_number': self.flight_number,
+                'fares': asdictc_collection(self.fares)}
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -51,6 +76,11 @@ class Fare(object):
         self.type = type
         self.amount = amount
         self.currency = currency
+
+    def asdict(self):
+        return {'type': self.type,
+                'amount': self.amount,
+                'currency': self.currency}
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
