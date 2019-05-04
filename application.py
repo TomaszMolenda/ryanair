@@ -1,10 +1,15 @@
+import firebase_admin
+from firebase_admin import credentials, db
 from flask import Flask, render_template, redirect, url_for, request
-
 from scheduler import run_scheduler
 from connector import check
 import database
 
 app = Flask(__name__)
+
+database_url = {'databaseURL': "https://ryanair-a33cd.firebaseio.com/"}
+cred = credentials.Certificate("/home/tomo/Downloads/ryanair-a33cd-firebase-adminsdk-jd0w3-4a43b990c3.json")
+firebase_admin.initialize_app(cred, database_url)
 
 
 @app.route('/')
@@ -16,19 +21,25 @@ def hello():
 
 @app.route('/setup', methods=['GET'])
 def setup_view():
-    return render_template('setup.html')
+    setup = db.reference().child('setup').get()
+    return render_template('setup.html', setup=setup)
 
 
 @app.route('/setup', methods=['POST'])
 def setup():
-    database.Database.getInstance().destination = request.form['destination']
-    database.Database.getInstance().departure_date = request.form['departure_date']
-    database.Database.getInstance().origin = request.form['origin']
-    database.Database.getInstance().arrival_date = request.form['arrival_date']
-    database.Database.getInstance().adult = request.form['adult']
-    database.Database.getInstance().teen = request.form['teen']
-    database.Database.getInstance().child = request.form['child']
-    database.Database.getInstance().flex_days = request.form['flex_days']
+    root = db.reference()
+    root.child('setup').set(
+        {
+            'destination': request.form['destination'],
+            'departure_date': request.form['departure_date'],
+            'origin': request.form['origin'],
+            'arrival_date': request.form['arrival_date'],
+            'adult': request.form['adult'],
+            'teen': request.form['teen'],
+            'child': request.form['child'],
+            'flex_days': request.form['flex_days']
+        }
+    )
     return redirect(url_for('setup_view'))
 
 
