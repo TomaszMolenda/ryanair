@@ -1,7 +1,6 @@
 import json
 
 import requests
-import database
 from firebase_admin import db
 from entity import Fare, Flight, Trip, Date, CheckedTrip
 
@@ -24,17 +23,16 @@ def find_trip(data, _from, _to):
             return Trip(trip['origin'], trip['destination'], dates)
 
 
-def check():
-    setup = db.reference().child('setup').get()
+def check(definition_id, definition):
 
-    departure_date = setup['departure_date']
-    arrival_date = setup['arrival_date']
-    destination = setup['destination']
-    origin = setup['origin']
-    adult = setup['adult']
-    teen = setup['teen']
-    child = setup['child']
-    flex_days = setup['flex_days']
+    departure_date = definition['departure_date']
+    arrival_date = definition['arrival_date']
+    destination = definition['destination']
+    origin = definition['origin']
+    adult = definition['adult']
+    teen = definition['teen']
+    child = definition['child']
+    flex_days = definition['flex_days']
 
     params = {
         'ADT': adult,
@@ -63,7 +61,6 @@ def check():
     checked_trip = CheckedTrip(trip_to_destination, trip_to_origin)
 
     db.reference().child('trips').push(checked_trip.asdict())
-
-    database.Database.getInstance().add_checked_trip(checked_trip)
+    db.reference().child('definitions').child(definition_id).child('trips').push(checked_trip.asdict())
 
     pass

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    {%for definition in definitions%}
-        test:{{definition.id}}
+    {%for dto in definitions%}
+        test:{{dto.definition.child}}
     {%endfor%}
 {% endblock %}

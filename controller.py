@@ -1,9 +1,10 @@
 import firebase_admin
 from firebase_admin import credentials, db
 from flask import Flask, render_template, redirect, url_for, request
+
+from dto import DefinitionDto
 from scheduler import run_scheduler
 from connector import check
-import database
 
 app = Flask(__name__)
 
@@ -14,21 +15,35 @@ firebase_admin.initialize_app(cred, database_url)
 
 @app.route('/')
 def hello():
-    check()
-    checked_trips = database.Database.getInstance().checked_trips
-    return render_template('index.html', checked_trips=checked_trips)
+    definitions = db.reference().child('definitions').get()
+    for definition_id, definition in definitions.items():
+        check(definition_id, definition)
+
+    return render_template('index.html', definitions=definitions)
 
 
-@app.route('/setup', methods=['GET'])
-def setup_view():
-    setup = db.reference().child('setup').get()
-    return render_template('setup.html', setup=setup)
+@app.route('/definitions', methods=['GET'])
+def definitions():
+    list = []
+    definitions = db.reference().child('definitions').get()
+    for definition_id, definition in definitions.items():
+        list1 = []
+        for trip_id, trip in definition['trips'].items():
+            list1.append(trip)
+        defi = DefinitionDto(definition, list1)
+        list.append(defi)
+    return render_template('definitions.html', definitions=list)
 
 
-@app.route('/setup', methods=['POST'])
-def setup():
+@app.route('/definitions/add', methods=['GET'])
+def add_definitions_view():
+    return render_template('definitions-add.html')
+
+
+@app.route('/definitions', methods=['POST'])
+def add_trips():
     root = db.reference()
-    root.child('setup').set(
+    root.child('definitions').push(
         {
             'destination': request.form['destination'],
             'departure_date': request.form['departure_date'],
@@ -40,7 +55,7 @@ def setup():
             'flex_days': request.form['flex_days']
         }
     )
-    return redirect(url_for('setup_view'))
+    return redirect(url_for('add_definitions_view'))
 
 
 run_scheduler()

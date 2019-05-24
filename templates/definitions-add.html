@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <form action="/definitions" method="POST">
+        Skąd: <input type="text" name="destination"><br>
+        Kiedy [rrrr-mm-dd]: <input type="text" name="departure_date"><br>
+        Dokąd: <input type="text" name="origin"><br>
+        Kiedy [rrrr-mm-dd]: <input type="text" name="arrival_date"><br>
+        Ile dorosłych: <input type="number" name="adult"><br>
+        Ile młodzieży: <input type="number" name="teen"><br>
+        Ile dzieci: <input type="number" name="child"><br>
+        Ile dni do przodu: <input type="number" name="flex_days"><br>
+        <input type="submit" value="Submit"><br>
+  </form>
+{% endblock %}
