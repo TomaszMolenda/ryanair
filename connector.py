@@ -59,8 +59,6 @@ def check(definition_id, definition):
     trip_to_origin = find_trip(data, _from=destination, _to=origin)
 
     checked_trip = CheckedTrip(trip_to_destination, trip_to_origin)
-
-    db.reference().child('trips').push(checked_trip.asdict())
-    db.reference().child('definitions').child(definition_id).child('trips').push(checked_trip.asdict())
+    db.reference().child('trips').child(definition_id).push(checked_trip.asdict())
 
     pass
