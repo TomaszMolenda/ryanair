@@ -1,5 +1,5 @@
-from factory import DefinitionFactory
-from repository import DefinitionRepository
+from definition.factory import DefinitionFactory
+from definition.repository import DefinitionRepository
 
 
 class ApplicationService:

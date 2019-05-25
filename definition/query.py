@@ -1,6 +1,6 @@
 from firebase_admin import db
 
-from dto import DefinitionDto
+from definition.dto import DefinitionDto
 
 
 def create_dto(definitions):

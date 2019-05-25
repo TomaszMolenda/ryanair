@@ -2,9 +2,9 @@ import firebase_admin
 from firebase_admin import credentials
 from flask import Flask, render_template, redirect, url_for, request
 
-from query import DefinitionQuery
+from definition.query import DefinitionQuery
 from scheduler import run_scheduler
-from service import ApplicationService
+from definition.service import ApplicationService
 
 app = Flask(__name__)
 
@@ -46,6 +46,15 @@ def delete_definition_action(definition_id):
 
     application_service = ApplicationService.get_instance()
     application_service.delete_definition(definition_id)
+
+    return redirect(url_for('list_definitions_view'))
+
+
+@app.route('/definitions/<definition_id>/trips', methods=['GET'])
+def list_definitions_trips_view(definition_id):
+
+    definition_query = DefinitionQuery.get_instance()
+    trips = definition_query.list_all()
 
     return redirect(url_for('list_definitions_view'))
 
