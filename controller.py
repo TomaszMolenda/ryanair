@@ -5,6 +5,7 @@ from flask import Flask, render_template, redirect, url_for, request
 from dto import DefinitionDto
 from scheduler import run_scheduler
 from connector import check
+from service import ApplicationService
 
 app = Flask(__name__)
 
@@ -42,19 +43,10 @@ def add_definitions_view():
 
 @app.route('/definitions', methods=['POST'])
 def add_trips():
-    root = db.reference()
-    root.child('definitions').push(
-        {
-            'destination': request.form['destination'],
-            'departure_date': request.form['departure_date'],
-            'origin': request.form['origin'],
-            'arrival_date': request.form['arrival_date'],
-            'adult': request.form['adult'],
-            'teen': request.form['teen'],
-            'child': request.form['child'],
-            'flex_days': request.form['flex_days']
-        }
-    )
+
+    application_service = ApplicationService.get_instance()
+    application_service.save_definition(request)
+
     return redirect(url_for('add_definitions_view'))
 
 

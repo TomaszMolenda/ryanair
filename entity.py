@@ -8,6 +8,45 @@ def asdictc_collection(collection_in):
     return return_collection
 
 
+class Definition(object):
+    def __init__(self, destination, departure_date, origin, arrival_date, adult, teen, child, flex_days, max_worth_to_pay):
+        self.destination = destination
+        self.departure_date = departure_date
+        self.origin = origin
+        self.arrival_date = arrival_date
+        self.adult = adult
+        self.teen = teen
+        self.child = child
+        self.flex_days = flex_days
+        self.max_worth_to_pay = max_worth_to_pay
+
+    def asdict(self):
+            return {'destination': self.destination,
+                    'departure_date': self.departure_date,
+                    'origin': self.origin,
+                    'arrival_date': self.arrival_date,
+                    'adult': self.adult,
+                    'teen': self.teen,
+                    'child': self.child,
+                    'flex_days': self.flex_days,
+                    'max_worth_to_pay': self.max_worth_to_pay
+                    }
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.destination == other.destination \
+                   and self.departure_date == other.departure_date \
+                   and self.origin == other.origin \
+                   and self.arrival_date == other.arrival_date \
+                   and self.adult == other.adult \
+                   and self.teen == other.teen \
+                   and self.child == other.child \
+                   and self.flex_days == other.flex_days \
+                   and self.max_worth_to_pay == other.max_worth_to_pay
+        else:
+            return False
+
+
 class CheckedTrip(object):
     def __init__(self, trip_to_destination, trip_to_origin):
         self.trip_to_destination = trip_to_destination
