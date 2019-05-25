@@ -1,11 +1,9 @@
 import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import credentials
 from flask import Flask, render_template, redirect, url_for, request
 
-from dto import DefinitionDto
 from query import DefinitionQuery
 from scheduler import run_scheduler
-from connector import check
 from service import ApplicationService
 
 app = Flask(__name__)
@@ -16,16 +14,13 @@ firebase_admin.initialize_app(cred, database_url)
 
 
 @app.route('/')
-def hello():
-    definitions = db.reference().child('definitions').get()
-    for definition_id, definition in definitions.items():
-        check(definition_id, definition)
-
-    return render_template('index.html', definitions=definitions)
+def index():
+    return render_template('index.html')
 
 
 @app.route('/definitions', methods=['GET'])
 def list_definitions_view():
+
     definition_query = DefinitionQuery.get_instance()
     definitions = definition_query.list_all()
 
