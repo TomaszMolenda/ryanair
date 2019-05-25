@@ -5,6 +5,7 @@ from flask import Flask, render_template, redirect, url_for, request
 from definition.query import DefinitionQuery
 from scheduler import run_scheduler
 from definition.service import ApplicationService
+from trip.query import TripQuery
 
 app = Flask(__name__)
 
@@ -53,10 +54,12 @@ def delete_definition_action(definition_id):
 @app.route('/definitions/<definition_id>/trips', methods=['GET'])
 def list_definitions_trips_view(definition_id):
 
+    trip_query = TripQuery.get_instance()
     definition_query = DefinitionQuery.get_instance()
-    trips = definition_query.list_all()
+    trips = trip_query.list_by_definition_id(definition_id)
+    definition = definition_query.get(definition_id)
 
-    return redirect(url_for('list_definitions_view'))
+    return render_template('trips.html', definition=definition, trips=trips)
 
 
 run_scheduler()

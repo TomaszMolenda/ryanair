@@ -1,5 +1,6 @@
 from definition.factory import DefinitionFactory
 from definition.repository import DefinitionRepository
+from trip.repository import TripRepository
 
 
 class ApplicationService:
@@ -29,6 +30,8 @@ class ApplicationService:
     @staticmethod
     def delete_definition(definition_id):
         definition_repository = DefinitionRepository.get_instance()
+        trip_repository = TripRepository.get_instance()
 
         definition_repository.delete(definition_id)
+        trip_repository.delete_by_definition_id(definition_id)
         pass

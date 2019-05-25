@@ -9,7 +9,8 @@ class DefinitionDto(object):
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.destination == other.destination \
+            return self.id == other.id \
+                   and self.destination == other.destination \
                    and self.departure_date == other.departure_date \
                    and self.origin == other.origin \
                    and self.arrival_date == other.arrival_date \

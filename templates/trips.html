@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<li>Skąd: {{definition.destination}}</li>
+<li>Kiedy: {{definition.departure_date}}</li>
+<li>Dokąd: {{definition.origin}}</li>
+<li>Kiedy: {{definition.arrival_date}}</li>
+<li>Maksymalna wartość: {{definition.max_worth_to_pay}}</li>
+    {%for trip in trips%}
+--------------------------------------------------------
+        Czas sprawdzenia: {{trip.checked_time}}<br>
+        <h1>Wyloty</h1>
+        {%for flight in trip.flights_to_destination%}
+        <li>Kiedy: {{flight.departure_date}}</li>
+        <li>Nr lotu: {{flight.flight_number}}</li>
+        <li>Dorosły: {{flight.adult_amount}}</li>
+        <li>Młodzież: {{flight.teen_amount}}</li>
+        <li>Dziecko: {{flight.child_amount}}</li>
+        {%endfor%}
+        <h1>Przyloty</h1>
+        {%for flight in trip.flights_to_origin%}
+        <li>Kiedy: {{flight.departure_date}}</li>
+        <li>Nr lotu: {{flight.flight_number}}</li>
+        <li>Dorosły: {{flight.adult_amount}}</li>
+        <li>Młodzież: {{flight.teen_amount}}</li>
+        <li>Dziecko: {{flight.child_amount}}</li>
+        {%endfor%}
+    {%endfor%}
+{% endblock %}

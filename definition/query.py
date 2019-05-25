@@ -3,16 +3,21 @@ from firebase_admin import db
 from definition.dto import DefinitionDto
 
 
-def create_dto(definitions):
+def create_item(definition_id, definition):
+    return DefinitionDto(definition_id,
+                         definition['destination'],
+                         definition['departure_date'],
+                         definition['origin'],
+                         definition['arrival_date'],
+                         definition['max_worth_to_pay']
+                         )
+
+
+def create_items(definitions):
     return_list = []
     for definition_id, definition in definitions.items():
-        return_list.append(DefinitionDto(definition_id,
-                                         definition['destination'],
-                                         definition['departure_date'],
-                                         definition['origin'],
-                                         definition['arrival_date'],
-                                         definition['max_worth_to_pay']
-                                         ))
+        dto = create_item(definition_id, definition)
+        return_list.append(dto)
     return return_list
 
 
@@ -38,4 +43,12 @@ class DefinitionQuery:
         if definitions is None:
             return []
 
-        return create_dto(definitions)
+        return create_items(definitions)
+
+    @staticmethod
+    def get(definition_id):
+        definition = db.reference().child('definitions').child(definition_id).get()
+
+        assert definition
+
+        return create_item(definition_id, definition)
