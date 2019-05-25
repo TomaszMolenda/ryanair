@@ -25,7 +25,7 @@ def hello():
 
 
 @app.route('/definitions', methods=['GET'])
-def definitions():
+def list_definitions_view():
     definition_query = DefinitionQuery.get_instance()
     definitions = definition_query.list_all()
 
@@ -38,12 +38,21 @@ def add_definitions_view():
 
 
 @app.route('/definitions', methods=['POST'])
-def add_trips():
+def add_definitions_action():
 
     application_service = ApplicationService.get_instance()
     application_service.save_definition(request)
 
-    return redirect(url_for('add_definitions_view'))
+    return redirect(url_for('list_definitions_view'))
+
+
+@app.route('/definitions/<definition_id>/delete', methods=['POST'])
+def delete_definition_action(definition_id):
+
+    application_service = ApplicationService.get_instance()
+    application_service.delete_definition(definition_id)
+
+    return redirect(url_for('list_definitions_view'))
 
 
 run_scheduler()

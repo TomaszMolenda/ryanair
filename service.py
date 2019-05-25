@@ -25,3 +25,10 @@ class ApplicationService:
         definition = definition_factory.create_definition(request)
         definition_repository.save(definition)
         pass
+
+    @staticmethod
+    def delete_definition(definition_id):
+        definition_repository = DefinitionRepository.get_instance()
+
+        definition_repository.delete(definition_id)
+        pass

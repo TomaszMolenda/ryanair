@@ -20,3 +20,8 @@ class DefinitionRepository:
     def save(definition):
         db.reference().child('definitions').push(definition.asdict())
         pass
+
+    @staticmethod
+    def delete(definition_id):
+        db.reference().child('definitions').child(definition_id).delete()
+        pass

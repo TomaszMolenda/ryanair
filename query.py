@@ -35,4 +35,7 @@ class DefinitionQuery:
     def list_all():
         definitions = db.reference().child('definitions').get()
 
+        if definitions is None:
+            return []
+
         return create_dto(definitions)
