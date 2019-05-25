@@ -19,6 +19,14 @@ class CheckedTrip(object):
                     'trip_to_origin': self.trip_to_origin.asdict(),
                     'date': self.date}
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.trip_to_destination == other.trip_to_destination \
+                   and self.trip_to_origin == other.trip_to_origin \
+                   and self.date == other.date
+        else:
+            return False
+
 
 class Trip(object):
     def __init__(self, origin, destination, dates):
