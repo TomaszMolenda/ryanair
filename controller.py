@@ -3,6 +3,7 @@ from firebase_admin import credentials, db
 from flask import Flask, render_template, redirect, url_for, request
 
 from dto import DefinitionDto
+from query import DefinitionQuery
 from scheduler import run_scheduler
 from connector import check
 from service import ApplicationService
@@ -25,15 +26,10 @@ def hello():
 
 @app.route('/definitions', methods=['GET'])
 def definitions():
-    list = []
-    definitions = db.reference().child('definitions').get()
-    for definition_id, definition in definitions.items():
-        list1 = []
-        for trip_id, trip in definition['trips'].items():
-            list1.append(trip)
-        defi = DefinitionDto(definition, list1)
-        list.append(defi)
-    return render_template('definitions.html', definitions=list)
+    definition_query = DefinitionQuery.get_instance()
+    definitions = definition_query.list_all()
+
+    return render_template('definitions.html', definitions=definitions)
 
 
 @app.route('/definitions/add', methods=['GET'])
