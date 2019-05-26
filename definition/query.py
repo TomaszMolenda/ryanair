@@ -9,6 +9,10 @@ def create_item(definition_id, definition):
                          definition['departure_date'],
                          definition['origin'],
                          definition['arrival_date'],
+                         definition['adult'],
+                         definition['teen'],
+                         definition['child'],
+                         definition['flex_days'],
                          definition['max_worth_to_pay']
                          )
 

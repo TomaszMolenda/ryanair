@@ -1,6 +1,4 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from firebase_admin import db
-from connector import check
 
 import time
 import atexit
@@ -11,9 +9,6 @@ def run_scheduler():
 
     def print_date_time():
         t = time.strftime("%A, %d. %B %Y %I:%M:%S %p")
-        definitions = db.reference().child('definitions').get()
-        for definition_id, definition in definitions.items():
-            check(definition_id, definition)
         print(t)
 
     scheduler = BackgroundScheduler()

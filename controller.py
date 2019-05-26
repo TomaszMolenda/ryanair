@@ -51,6 +51,15 @@ def delete_definition_action(definition_id):
     return redirect(url_for('list_definitions_view'))
 
 
+@app.route('/definitions/<definition_id>/check-trips', methods=['POST'])
+def check_definition_trips_action(definition_id):
+
+    application_service = ApplicationService.get_instance()
+    application_service.check_trips(definition_id)
+
+    return redirect(url_for('list_definitions_view'))
+
+
 @app.route('/definitions/<definition_id>/trips', methods=['GET'])
 def list_definitions_trips_view(definition_id):
 

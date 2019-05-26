@@ -14,8 +14,8 @@ class TripDto(object):
 
 
 class FlightDto(object):
-    def __init__(self, departure_date, flight_number, adult_amount, teen_amount, child_amount):
-        self.departure_date = departure_date
+    def __init__(self, date, flight_number, adult_amount, teen_amount, child_amount):
+        self.date = date
         self.flight_number = flight_number
         self.adult_amount = adult_amount
         self.teen_amount = teen_amount
@@ -23,7 +23,7 @@ class FlightDto(object):
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.departure_date == other.departure_date \
+            return self.date == other.date \
                    and self.flight_number == other.flight_number \
                    and self.adult_amount == other.adult_amount \
                    and self.teen_amount == other.teen_amount \

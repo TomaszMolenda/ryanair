@@ -13,8 +13,13 @@
         <input type="submit" name="usuń" value="Usuń" />
         </form>
     </td>
+     <td>
+        <form action="/definitions/{{dto.id}}/check-trips" method="post">
+        <input type="submit" name="check" value="Sprawdź loty" />
+        </form>
+    </td>
     <td>
-        <a href="/definitions/{{dto.id}}/trips"><button>Loty</button></a>
+        <a href="/definitions/{{dto.id}}/trips"><button>Lista lotów</button></a>
     </td>
     </tr>
  {%endfor%}

@@ -9,7 +9,8 @@ def asdictc_collection(collection_in):
 
 
 class Definition(object):
-    def __init__(self, destination, departure_date, origin, arrival_date, adult, teen, child, flex_days, max_worth_to_pay):
+    def __init__(self, destination, departure_date, origin, arrival_date, adult, teen, child, flex_days,
+                 max_worth_to_pay):
         self.destination = destination
         self.departure_date = departure_date
         self.origin = origin
@@ -21,16 +22,16 @@ class Definition(object):
         self.max_worth_to_pay = max_worth_to_pay
 
     def asdict(self):
-            return {'destination': self.destination,
-                    'departure_date': self.departure_date,
-                    'origin': self.origin,
-                    'arrival_date': self.arrival_date,
-                    'adult': self.adult,
-                    'teen': self.teen,
-                    'child': self.child,
-                    'flex_days': self.flex_days,
-                    'max_worth_to_pay': self.max_worth_to_pay
-                    }
+        return {'destination': self.destination,
+                'departure_date': self.departure_date,
+                'origin': self.origin,
+                'arrival_date': self.arrival_date,
+                'adult': self.adult,
+                'teen': self.teen,
+                'child': self.child,
+                'flex_days': self.flex_days,
+                'max_worth_to_pay': self.max_worth_to_pay
+                }
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
@@ -47,92 +48,89 @@ class Definition(object):
             return False
 
 
+def obtain_flights_to_destination(persisted_trips):
+    return_list = []
+
+    for persisted_trip in persisted_trips:
+        return_list.extend(persisted_trip.flights_to_destination)
+
+    return return_list
+
+
+def obtain_flights_to_origin(persisted_trips):
+    return_list = []
+
+    for persisted_trip in persisted_trips:
+        return_list.extend(persisted_trip.flights_to_origin)
+
+    return return_list
+
+
+def exist(flight, persisted_flights):
+    for persisted_flight in persisted_flights:
+        if flight.date == persisted_flight.date \
+                and flight.flight_number == persisted_flight.flight_number \
+                and flight.adult_amount == persisted_flight.adult_amount \
+                and flight.teen_amount == persisted_flight.teen_amount \
+                and flight.child_amount == persisted_flight.child_amount:
+            return True
+    return False
+
+
 class CheckedTrip(object):
-    def __init__(self, trip_to_destination, trip_to_origin):
-        self.trip_to_destination = trip_to_destination
-        self.trip_to_origin = trip_to_origin
+    def __init__(self, flights_to_destination, flights_to_origin):
+        self.flights_to_destination = flights_to_destination
+        self.flights_to_origin = flights_to_origin
         self.date = datetime.datetime.now().isoformat()
 
     def asdict(self):
-            return {'trip_to_destination': self.trip_to_destination.asdict(),
-                    'trip_to_origin': self.trip_to_origin.asdict(),
-                    'date': self.date}
+        return {'flights_to_destination': asdictc_collection(self.flights_to_destination),
+                'flights_to_origin': asdictc_collection(self.flights_to_origin),
+                'date': self.date}
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.trip_to_destination == other.trip_to_destination \
-                   and self.trip_to_origin == other.trip_to_origin \
+            return self.flights_to_destination == other.flights_to_destination \
+                   and self.flights_to_destination == other.flights_to_destination \
                    and self.date == other.date
         else:
             return False
 
+    def remove_existing(self, persisted_trips):
 
-class Trip(object):
-    def __init__(self, origin, destination, dates):
-        self.origin = origin
-        self.destination = destination
-        self.dates = dates
+        persisted_flights_to_destination = obtain_flights_to_destination(persisted_trips)
+        persisted_flights_to_origin = obtain_flights_to_origin(persisted_trips)
 
-    def asdict(self):
-        return {'origin': self.origin,
-                'destination': self.destination,
-                'dates': asdictc_collection(self.dates)}
+        for flight_to_destination in self.flights_to_destination:
+            if exist(flight_to_destination, persisted_flights_to_destination):
+                self.flights_to_destination.remove(flight_to_destination)
 
-    def __eq__(self, other):
-        if isinstance(other, self.__class__):
-            return self.origin == other.origin \
-                   and self.destination == other.destination
-        else:
-            return False
+        for flight_to_origin in self.flights_to_origin:
+            if exist(flight_to_origin, persisted_flights_to_origin):
+                self.flights_to_origin.remove(flight_to_origin)
 
-
-class Date(object):
-    def __init__(self, departure_date, flights):
-        self.departure_date = departure_date
-        self.flights = flights
-
-    def asdict(self):
-        return {'departure_date': self.departure_date,
-                'flights': asdictc_collection(self.flights)}
-
-    def __eq__(self, other):
-        if isinstance(other, self.__class__):
-            return self.departure_date == other.departure_date
-        else:
-            return False
+        pass
 
 
 class Flight(object):
-    def __init__(self, flight_number, fares):
+    def __init__(self, date, flight_number, adult_amount, teen_amount, child_amount):
+        self.date = date
         self.flight_number = flight_number
-        self.fares = fares
+        self.adult_amount = adult_amount
+        self.teen_amount = teen_amount
+        self.child_amount = child_amount
 
     def asdict(self):
-        return {'flight_number': self.flight_number,
-                'fares': asdictc_collection(self.fares)}
+        return {
+            'date': self.date,
+            'flight_number': self.flight_number,
+            'adult_amount': self.adult_amount,
+            'teen_amount': self.teen_amount,
+            'child_amount': self.child_amount
+        }
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.flight_number == other.flight_number
-        else:
-            return False
-
-
-class Fare(object):
-    def __init__(self, type, amount, currency):
-        self.type = type
-        self.amount = amount
-        self.currency = currency
-
-    def asdict(self):
-        return {'type': self.type,
-                'amount': self.amount,
-                'currency': self.currency}
-
-    def __eq__(self, other):
-        if isinstance(other, self.__class__):
-            return self.type == other.type \
-                   and self.amount == other.amount \
-                   and self.currency == other.currency
         else:
             return False

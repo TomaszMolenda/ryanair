@@ -1,4 +1,6 @@
+from connector import check
 from definition.factory import DefinitionFactory
+from definition.query import DefinitionQuery
 from definition.repository import DefinitionRepository
 from trip.repository import TripRepository
 
@@ -34,4 +36,11 @@ class ApplicationService:
 
         definition_repository.delete(definition_id)
         trip_repository.delete_by_definition_id(definition_id)
+        pass
+
+    @staticmethod
+    def check_trips(definition_id):
+        definition_query = DefinitionQuery.get_instance()
+        definition = definition_query.get(definition_id)
+        check(definition_id, definition)
         pass

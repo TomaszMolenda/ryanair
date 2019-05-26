@@ -11,7 +11,7 @@
         Czas sprawdzenia: {{trip.checked_time}}<br>
         <h1>Wyloty</h1>
         {%for flight in trip.flights_to_destination%}
-        <li>Kiedy: {{flight.departure_date}}</li>
+        <li>Kiedy: {{flight.date}}</li>
         <li>Nr lotu: {{flight.flight_number}}</li>
         <li>Dorosły: {{flight.adult_amount}}</li>
         <li>Młodzież: {{flight.teen_amount}}</li>
@@ -19,7 +19,7 @@
         {%endfor%}
         <h1>Przyloty</h1>
         {%for flight in trip.flights_to_origin%}
-        <li>Kiedy: {{flight.departure_date}}</li>
+        <li>Kiedy: {{flight.date}}</li>
         <li>Nr lotu: {{flight.flight_number}}</li>
         <li>Dorosły: {{flight.adult_amount}}</li>
         <li>Młodzież: {{flight.teen_amount}}</li>
