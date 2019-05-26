@@ -65,8 +65,8 @@ def list_definitions_trips_view(definition_id):
 
     trip_query = TripQuery.get_instance()
     definition_query = DefinitionQuery.get_instance()
-    trips = trip_query.list_by_definition_id(definition_id)
     definition = definition_query.get(definition_id)
+    trips = trip_query.list_by_definition(definition)
 
     return render_template('trips.html', definition=definition, trips=trips)
 

@@ -90,7 +90,7 @@ def check(definition_id, definition):
     checked_trip = CheckedTrip(flights_to_destination, flights_to_origin)
 
     trip_query = TripQuery.get_instance()
-    persisted_trips = trip_query.list_by_definition_id(definition_id)
+    persisted_trips = trip_query.list_by_definition(definition)
 
     checked_trip.remove_existing(persisted_trips)
 
