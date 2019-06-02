@@ -101,13 +101,21 @@ class CheckedTrip(object):
         persisted_flights_to_destination = obtain_flights_to_destination(persisted_trips)
         persisted_flights_to_origin = obtain_flights_to_origin(persisted_trips)
 
+        flights_to_destination_to_remove = []
         for flight_to_destination in self.flights_to_destination:
             if exist(flight_to_destination, persisted_flights_to_destination):
-                self.flights_to_destination.remove(flight_to_destination)
+                flights_to_destination_to_remove.append(flight_to_destination)
 
+        for flight_to_destination in flights_to_destination_to_remove:
+            self.flights_to_destination.remove(flight_to_destination)
+
+        flights_to_origin_to_remove = []
         for flight_to_origin in self.flights_to_origin:
             if exist(flight_to_origin, persisted_flights_to_origin):
-                self.flights_to_origin.remove(flight_to_origin)
+                flights_to_origin_to_remove.append(flight_to_origin)
+
+        for flight_to_origin in flights_to_origin_to_remove:
+            self.flights_to_origin.remove(flight_to_origin)
 
         pass
 
