@@ -1,7 +1,7 @@
-import json
-
 import requests
 from firebase_admin import db
+
+from email_service import EmailApplicationService
 from entity import Flight, CheckedTrip
 from trip.query import TripQuery
 
@@ -31,25 +31,6 @@ def find_flights(data, _from, _to):
                         flight = Flight(flight_date, flight['flightNumber'], adult_amount, teen_amount, child_amount)
                         return_list.append(flight)
     return return_list
-
-
-def not_exists(checked_trip, persisted_trips):
-    exist = False
-    for persisted_trip in persisted_trips:
-        for persisted_flight in persisted_trip.flights_to_destination:
-            persisted_flight_date = persisted_flight.date
-            persisted_flight_number = persisted_flight.flight_number
-            persisted_adult_amount = persisted_flight.adult_amount
-            persisted_teen_amount = persisted_flight.teen_amount
-            persisted_child_amount = persisted_flight.child_amount
-            for checked_flight in checked_trip.flights_to_destination:
-                checked_flight_date = checked_flight.date
-                checked_flight_number = checked_flight.flight_number
-                checked_adult_amount = checked_flight.adult_amount
-                checked_teen_amount = checked_flight.teen_amount
-                checked_child_amount = checked_flight.child_amount
-
-    return not exist
 
 
 def check(definition_id, definition):
@@ -96,5 +77,6 @@ def check(definition_id, definition):
 
     if checked_trip.flights_to_origin or checked_trip.flights_to_destination:
         db.reference().child('trips').child(definition_id).push(checked_trip.asdict())
-
+        application_service = EmailApplicationService.get_instance()
+        application_service.send_email('mamammaam')
     pass

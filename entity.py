@@ -142,3 +142,30 @@ class Flight(object):
             return self.flight_number == other.flight_number
         else:
             return False
+
+
+class Email(object):
+    def __init__(self, email_from, email_to, password, server_smtp):
+        self.id = id
+        self.email_from = email_from
+        self.email_to = email_to
+        self.password = password
+        self.server_smtp = server_smtp
+
+    def asdict(self):
+        return {
+            'email_from': self.email_from,
+            'email_to': self.email_to,
+            'password': self.password,
+            'server_smtp': self.server_smtp,
+        }
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.id == other.id \
+                   and self.email_from == other.email_from \
+                   and self.email_to == other.email_to \
+                   and self.password == other.password \
+                   and self.server_smtp == other.server_smtp
+        else:
+            return False

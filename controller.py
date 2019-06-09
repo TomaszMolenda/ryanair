@@ -3,6 +3,8 @@ from firebase_admin import credentials
 from flask import Flask, render_template, redirect, url_for, request
 
 from definition.query import DefinitionQuery
+from email_query import EmailQuery
+from email_service import EmailApplicationService
 from scheduler import run_scheduler
 from definition.service import ApplicationService
 from trip.query import TripQuery
@@ -69,6 +71,24 @@ def list_definitions_trips_view(definition_id):
     trips = trip_query.list_by_definition(definition)
 
     return render_template('trips.html', definition=definition, trips=trips)
+
+
+@app.route('/email', methods=['GET'])
+def get_email_view():
+
+    email_query = EmailQuery.get_instance()
+    email = email_query.get()
+
+    return render_template('email.html', email=email)
+
+
+@app.route('/email', methods=['POST'])
+def set_email_action():
+
+    email_application_service = EmailApplicationService.get_instance()
+    email_application_service.set_email(request)
+
+    return redirect(url_for('index'))
 
 
 run_scheduler()
