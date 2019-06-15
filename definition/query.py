@@ -1,5 +1,6 @@
 from firebase_admin import db
 
+import logging
 from definition.dto import DefinitionDto
 
 
@@ -25,6 +26,13 @@ def create_items(definitions):
     return return_list
 
 
+def get_ids(dtos):
+    return_list = []
+    for dto in dtos:
+        return_list.append(dto.id)
+    return return_list
+
+
 class DefinitionQuery:
     __instance = None
 
@@ -45,9 +53,16 @@ class DefinitionQuery:
         definitions = db.reference().child('definitions').get()
 
         if definitions is None:
+            logging.info('list empty definitions')
             return []
 
-        return create_items(definitions)
+        dtos = create_items(definitions)
+
+        ids = get_ids(dtos)
+
+        logging.info('list all definitions: %s', ids)
+
+        return dtos
 
     @staticmethod
     def get(definition_id):
@@ -55,4 +70,8 @@ class DefinitionQuery:
 
         assert definition
 
-        return create_item(definition_id, definition)
+        dto = create_item(definition_id, definition)
+
+        logging.info('list definition: %s', definition_id)
+
+        return dto

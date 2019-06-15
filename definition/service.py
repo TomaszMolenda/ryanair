@@ -1,3 +1,5 @@
+import logging
+
 from connector import check
 from definition.factory import DefinitionFactory
 from definition.query import DefinitionQuery
@@ -27,6 +29,9 @@ class ApplicationService:
 
         definition = definition_factory.create_definition(request)
         definition_repository.save(definition)
+
+        logging.info('saved new definition: %s', definition.asdict())
+
         pass
 
     @staticmethod
@@ -36,11 +41,26 @@ class ApplicationService:
 
         definition_repository.delete(definition_id)
         trip_repository.delete_by_definition_id(definition_id)
+
+        logging.info('deleted definition: %s', definition_id)
+
         pass
 
     @staticmethod
     def check_trips(definition_id):
         definition_query = DefinitionQuery.get_instance()
         definition = definition_query.get(definition_id)
-        check(definition_id, definition)
+        check(definition)
+
+        logging.info('checked trips for definition: %s', definition_id)
+
+        pass
+
+    @staticmethod
+    def check_trips_for_all_definition():
+        definition_query = DefinitionQuery.get_instance()
+        definitions = definition_query.list_all()
+        for definition in definitions:
+            check(definition)
+            logging.info('checked trips for definition: %s', definition.id)
         pass

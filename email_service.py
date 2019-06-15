@@ -1,4 +1,5 @@
 import smtplib
+import logging
 
 from email_factory import EmailFactory
 from email_repository import EmailRepository
@@ -26,6 +27,9 @@ class EmailApplicationService:
 
         email = email_factory.create_email(request)
         email_repository.save(email)
+
+        logging.info('saved email: %s', email.asdict())
+
         pass
 
     @staticmethod
@@ -44,4 +48,7 @@ class EmailApplicationService:
         server.login(fromx, password)
         server.sendmail(fromx, to, msg.encode('utf-8').strip())
         server.quit()
+
+        logging.info('send email: %s', email_content)
+
         pass

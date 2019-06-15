@@ -23,7 +23,7 @@ def create_dtos(trips, definition):
     for trip_id, trip in trips.items():
         checked_time = trip['date']
 
-        flights_to_destination = create_flights(trip['flights_to_destination'], definition)
+        flights_to_destination = create_flights(trip.get('flights_to_destination', []), definition)
         flights_to_origin = create_flights(trip['flights_to_origin'], definition)
 
         dto = TripDto(checked_time, flights_to_destination, flights_to_origin)

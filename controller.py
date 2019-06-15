@@ -1,4 +1,5 @@
 import firebase_admin
+import logging
 from firebase_admin import credentials
 from flask import Flask, render_template, redirect, url_for, request
 
@@ -67,6 +68,7 @@ def list_definitions_trips_view(definition_id):
 
     trip_query = TripQuery.get_instance()
     definition_query = DefinitionQuery.get_instance()
+
     definition = definition_query.get(definition_id)
     trips = trip_query.list_by_definition(definition)
 
@@ -95,5 +97,6 @@ run_scheduler()
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='application.log', level=logging.INFO, format='%(asctime)s - %(message)s')
     app.run(host="0.0.0.0")
 

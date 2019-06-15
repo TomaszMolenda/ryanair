@@ -33,7 +33,7 @@ def find_flights(data, _from, _to):
     return return_list
 
 
-def check(definition_id, definition):
+def check(definition):
 
     departure_date = definition.departure_date
     arrival_date = definition.arrival_date
@@ -76,7 +76,7 @@ def check(definition_id, definition):
     checked_trip.remove_existing(persisted_trips)
 
     if checked_trip.flights_to_origin or checked_trip.flights_to_destination:
-        db.reference().child('trips').child(definition_id).push(checked_trip.asdict())
+        db.reference().child('trips').child(definition.id).push(checked_trip.asdict())
         application_service = EmailApplicationService.get_instance()
         application_service.send_email('mamammaam')
     pass
