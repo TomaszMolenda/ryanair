@@ -1,0 +1,70 @@
+---
+- name: Configure application
+  hosts: all
+  sudo: yes
+  vars:
+    application: ryanair
+    repository_url: git@github.com:TomaszMolenda/ryanair.git
+    repository_path: "/home/tomo/{{ application }}"
+
+  tasks:
+    - name: Install packages
+      apt: 
+        update_cache: yes
+        state: present
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - git
+          - python-pip
+          - nginx
+          - python-flask
+
+    - name: Clone repository
+      git:
+        repo: "{{ repository_url }}"
+        dest: "{{ repository_path }}"
+        accept_hostkey: yes
+
+    - name: Install requirements in virtualenv
+      pip:
+        requirements: "{{ repository_path }}/requirements.txt"
+        virtualenv: "{{ repository_path }}/{{ application }}env"
+        virtualenv_command: "/usr/bin/python3 -m venv"
+        virtualenv_site_packages: true
+    
+    - name: Copy Upstart configuration
+      template: 
+        src: ryanair-service.j2
+        dest: "/etc/systemd/system/{{ application }}.service"
+
+    - name: Make sure our server is running
+      service: 
+        name: "{{ application }}"
+        state: started
+        
+    - name: Change permission
+      file: 
+        dest: "{{ repository_path }}"
+        owner: "tomo"
+        group: "tomo"
+        mode: 0775
+        recurse: yes
+        
+    - name: Copy Nginx site
+      template:
+        src: ryanair-nginx.j2
+        dest: "/etc/nginx/sites-enabled/{{ application }}"
+      notify:
+        - restart nginx
+
+    - name: Make sure nginx is running
+      service:
+        name: nginx
+        state: started
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
