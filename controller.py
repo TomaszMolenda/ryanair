@@ -13,7 +13,7 @@ from trip.query import TripQuery
 app = Flask(__name__)
 
 database_url = {'databaseURL': "https://ryanair-a33cd.firebaseio.com/"}
-cred = credentials.Certificate("/home/tomo/Downloads/ryanair-a33cd-firebase-adminsdk-jd0w3-4a43b990c3.json")
+cred = credentials.Certificate("ryanair-a33cd-firebase-adminsdk-jd0w3-595816bfc2.json")
 firebase_admin.initialize_app(cred, database_url)
 
 

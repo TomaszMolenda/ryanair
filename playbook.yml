@@ -1,11 +1,14 @@
 ---
 - name: Configure application
   hosts: all
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   vars:
     application: ryanair
     repository_url: git@github.com:TomaszMolenda/ryanair.git
-    repository_path: "/home/tomo/{{ application }}"
+    repository_path: "/etc/{{ application }}"
+    ansible_ssh_extra_args: '-o ForwardAgent=yes'
 
   tasks:
     - name: Install packages
@@ -19,6 +22,7 @@
           - python-pip
           - nginx
           - python-flask
+          - python3-venv
 
     - name: Clone repository
       git:
@@ -32,25 +36,30 @@
         virtualenv: "{{ repository_path }}/{{ application }}env"
         virtualenv_command: "/usr/bin/python3 -m venv"
         virtualenv_site_packages: true
-    
+
+    - name: Ansible copy file to remote server
+      copy:
+        src: "/home/tomo/PycharmProjects/ryanair/ryanair-a33cd-firebase-adminsdk-jd0w3-595816bfc2.json"
+        dest: "/etc/{{ application }}/ryanair-a33cd-firebase-adminsdk-jd0w3-595816bfc2.json"
+
     - name: Copy Upstart configuration
-      template: 
+      template:
         src: ryanair-service.j2
         dest: "/etc/systemd/system/{{ application }}.service"
 
     - name: Make sure our server is running
-      service: 
+      service:
         name: "{{ application }}"
         state: started
-        
-    - name: Change permission
-      file: 
-        dest: "{{ repository_path }}"
-        owner: "tomo"
-        group: "tomo"
-        mode: 0775
-        recurse: yes
-        
+#
+#    - name: Change permission
+#      file:
+#        dest: "{{ repository_path }}"
+#        owner: "tomo"
+#        group: "tomo"
+#        mode: 0775
+#        recurse: yes
+#
     - name: Copy Nginx site
       template:
         src: ryanair-nginx.j2
