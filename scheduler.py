@@ -14,6 +14,6 @@ def run_scheduler():
         application_service.check_trips_for_all_definition()
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=check_all_trips, trigger="interval", seconds=60)
+    scheduler.add_job(func=check_all_trips, trigger="interval", seconds=600)
     scheduler.start()
     atexit.register(lambda: scheduler.shutdown())
