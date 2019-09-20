@@ -5,7 +5,7 @@ After=network.target
 [Service]
 WorkingDirectory={{ repository_path }}
 Environment="PATH={{ repository_path }}/{{ application }}env/bin"
-ExecStart={{ repository_path }}/{{ application }}env/bin/gunicorn --workers 3 --bind unix:{{ application }}.sock -m 007 wsgi:app
+ExecStart={{ repository_path }}/{{ application }}env/bin/gunicorn --workers 3 --bind 0.0.0.0:8000 wsgi:app
 
 [Install]
 WantedBy=multi-user.target
