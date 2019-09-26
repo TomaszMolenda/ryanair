@@ -20,12 +20,10 @@ class EmailFactory:
     def create_email(request):
         email_from = request.form['email_from'].strip()
         email_to = request.form['email_to'].strip()
-        passwrod = request.form['password'].strip()
         server_smtp = 'smtp.gmail.com:587'
 
         assert email_from
         assert email_to
-        assert passwrod
         assert server_smtp
 
-        return Email(email_from, email_to, passwrod, server_smtp)
+        return Email(email_from, email_to, server_smtp)

@@ -149,14 +149,12 @@ class Email(object):
         self.id = id
         self.email_from = email_from
         self.email_to = email_to
-        self.password = password
         self.server_smtp = server_smtp
 
     def asdict(self):
         return {
             'email_from': self.email_from,
             'email_to': self.email_to,
-            'password': self.password,
             'server_smtp': self.server_smtp,
         }
 
@@ -165,7 +163,6 @@ class Email(object):
             return self.id == other.id \
                    and self.email_from == other.email_from \
                    and self.email_to == other.email_to \
-                   and self.password == other.password \
                    and self.server_smtp == other.server_smtp
         else:
             return False
