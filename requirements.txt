@@ -1,4 +1,4 @@
-requests==2.21.0
+requests==2.31.0
 Flask==1.0.2
 gunicorn==19.9.0
 virtualenv==16.3.0
